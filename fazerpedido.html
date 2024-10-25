@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio do Dia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        nav {
+            background-color: #1799C8; /* Azul claro */
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            background-color: #b3b827; /* Amarelo escuro */
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .item img {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .horario {
+            margin-top: 10px;
+            color: #555;
+        }
+        .horarios {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .horario-opcao {
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 15px;
+            width: 200px;
+            text-align: center;
+        }
+        .disponibilidade {
+            font-weight: bold;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #1799C8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #b3b827;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="indexmarmita.html">Início</a>
+        <a href="#">Fazer Pedido ou Reserva</a>
+        <a href="#">Pedidos e Reservas</a>
+        <a href="#">Configurações</a>
+
+    </nav>
+
+    <h1>Cardápio do Dia</h1>
+    <div class="menu">
+        <div class="item">
+            <img src="imagem1.jpg" alt="Prato 1">
+            <h2>Prato 1</h2>
+            <p>Descrição do prato 1.</p>
+            <div class="horario">Disponível das 12:00 às 15:00</div>
+        </div>
+        <!-- Adicione outros pratos aqui -->
+    </div>
+
+    <h2>Escolha um Horário</h2>
+    <div class="horarios">
+        <div class="horario-opcao">
+            <p>11:00 - 11:30</p>
+            <p class="disponibilidade">Vagas disponíveis: 5</p>
+        </div>
+        <div class="horario-opcao">
+            <p>11:30 - 12:00</p>
+            <p class="disponibilidade">Vagas disponíveis: 3</p>
+        </div>
+        <div class="horario-opcao">
+            <p>12:00 - 12:30</p>
+            <p class="disponibilidade">Vagas disponíveis: 2</p>
+        </div>
+        <div class="horario-opcao">
+            <p>12:30 - 13:00</p>
+            <p class="disponibilidade">Vagas disponíveis: 4</p>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <button onclick="alert('Pedido realizado com sucesso!')">Confirmar Pedido</button>
+    </div>
+
+</body>
+</html>
+14:09 25/10/2024
