@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>I GisaFood</title>
-    <style>13:54 25/10/2024
+    <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #fff;
@@ -48,24 +48,80 @@
             width: 200px;
             text-align: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: pointer; /* Indica que é clicável */
+        }
+        .item.selected {
+            background-color: blue; /* Cor azul para itens selecionados */
+            color: white; /* Texto branco para contraste */
         }
         .item img {
             width: 100%;
             border-radius: 5px;
         }
-        .horario {
-            margin-top: 10px;
-            color: #555;
-        }
         .section {
             margin: 20px 0;
         }
+        #selectedItems {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f0f8ff; /* Azul claro */
+        }
+        #selectedItems button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #1799C8; /* Azul claro */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #selectedItems button:hover {
+            background-color: #b3b827; /* Amarelo escuro */
+        }
     </style>
+    <script>
+        function toggleSelect(item) {
+            item.classList.toggle('selected');
+            updateSelectedItems();
+        }
+
+        function updateSelectedItems() {
+            const selectedItems = document.querySelectorAll('.item.selected');
+            const selectedItemsList = document.getElementById('selectedItemsList');
+            selectedItemsList.innerHTML = ''; // Limpa a lista
+
+            if (selectedItems.length > 0) {
+                selectedItems.forEach(item => {
+                    const itemName = item.querySelector('h2').innerText;
+                    const li = document.createElement('li');
+                    li.textContent = itemName;
+                    selectedItemsList.appendChild(li);
+                });
+            } else {
+                selectedItemsList.innerHTML = '<li>Nenhum prato selecionado.</li>';
+            }
+        }
+
+        function finalizarPedido() {
+            const selectedItems = document.querySelectorAll('.item.selected');
+            if (selectedItems.length > 0) {
+                localStorage.setItem('selectedItems', JSON.stringify(Array.from(selectedItems).map(item => item.querySelector('h2').innerText)));
+                window.location.href = 'fazerpedido.html';
+            } else {
+                alert('Nenhum prato selecionado!');
+            }
+        }
+    </script>
 </head>
 <body>
 
     <nav>
-        <a href="fazerpedido.html">Fazer Pedido ou Reserva</a>
+        <a href="#">Fazer Pedido ou Reserva</a>
         <a href="#">Pedidos e Reservas</a>
         <a href="#">Configurações</a>
     </nav>
@@ -75,18 +131,15 @@
     <div class="section">
         <h2>Proteínas</h2>
         <div class="menu">
-            <div class="item">
+            <div class="item" onclick="toggleSelect(this)">
                 <img src="imagem_proteina1.jpg" alt="Frango Grelhado">
                 <h2>Frango Grelhado</h2>
                 <p>Frango temperado, grelhado à perfeição.</p>
-                <div class="horario">Disponível das 11:00 às 13:00</div>
             </div>
-            <div class="item">
+            <div class="item" onclick="toggleSelect(this)">
                 <img src="imagem_proteina2.jpg" alt="Filé de Peixe">
                 <h2>Filé de Peixe</h2>
                 <p>Filé de peixe com molho de limão.</p>
-                <div class="horario">Disponível das 11:00 às 13:00</div>
-
             </div>
         </div>
     </div>
@@ -94,11 +147,10 @@
     <div class="section">
         <h2>Saladas</h2>
         <div class="menu">
-            <div class="item">
+            <div class="item" onclick="toggleSelect(this)">
                 <img src="imagem_saladas.jpg" alt="Salada Verde">
                 <h2>Salada Verde</h2>
                 <p>Mix de folhas frescas com molho de mostarda.</p>
-                <div class="horario">Disponível das 11:00 às 13:00</div>
             </div>
         </div>
     </div>
@@ -106,11 +158,10 @@
     <div class="section">
         <h2>Massas</h2>
         <div class="menu">
-            <div class="item">
+            <div class="item" onclick="toggleSelect(this)">
                 <img src="imagem_massa.jpg" alt="Espaguete ao Molho de Tomate">
                 <h2>Espaguete ao Molho de Tomate</h2>
                 <p>Tradicional espaguete com molho caseiro.</p>
-                <div class="horario">Disponível das 11:00 às 13:00</div>
             </div>
         </div>
     </div>
@@ -118,17 +169,15 @@
     <div class="section">
         <h2>Carboidratos</h2>
         <div class="menu">
-            <div class="item">
+            <div class="item" onclick="toggleSelect(this)">
                 <img src="imagem_arroz.jpg" alt="Arroz Branco">
                 <h2>Arroz Branco</h2>
                 <p>Arroz soltinho e bem temperado.</p>
-                <div class="horario">Disponível das 11:00 às 13:00</div>
             </div>
-            <div class="item">
+            <div class="item" onclick="toggleSelect(this)">
                 <img src="imagem_purê.jpg" alt="Purê de Batata">
                 <h2>Purê de Batata</h2>
                 <p>Purê cremoso e saboroso.</p>
-                <div class="horario">Disponível das 11:00 às 13:00</div>
             </div>
         </div>
     </div>
@@ -136,25 +185,30 @@
     <div class="section">
         <h2>Pratos à la Carte</h2>
         <div class="menu">
-            <div class="item">
+            <div class="item" onclick="toggleSelect(this)">
                 <img src="imagem_lasanha.jpg" alt="Lasanha">
                 <h2>Lasanha</h2>
                 <p>Lasanha com molho béchamel e queijo.</p>
-                <div class="horario">Disponível das 11:00 às 13:00</div>
             </div>
-            <div class="item">
+            <div class="item" onclick="toggleSelect(this)">
                 <img src="imagem_estrogonofe.jpg" alt="Estrogonofe">
                 <h2>Estrogonofe</h2>
                 <p>Estrogonofe de carne com arroz.</p>
-                <div class="horario">Disponível das 11:00 às 13:00</div>
             </div>
-            <div class="item">
+            <div class="item" onclick="toggleSelect(this)">
                 <img src="imagem_vegetariano.jpg" alt="Prato Vegetariano">
                 <h2>Prato Vegetariano</h2>
                 <p>Prato à base de legumes e grãos.</p>
-                <div class="horario">Disponível das 11:00 às 13:00</div>
             </div>
         </div>
+    </div>
+
+    <div id="selectedItems">
+        <h2>Itens Selecionados</h2>
+        <ul id="selectedItemsList">
+            <li>Nenhum prato selecionado.</li>
+        </ul>
+        <button onclick="finalizarPedido()">Finalizar Pedido</button>
     </div>
 
 </body>
