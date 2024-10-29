@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cardápio do Dia</title>
+    <title>Fazer Pedido - GisaFood</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,40 +11,39 @@
             margin: 0;
             padding: 20px;
         }
-        h1, h2 {
+        h1 {
             text-align: center;
             color: #333;
         }
-        nav {
+        /* Estilos da Barra de Navegação */
+        .navbar {
             background-color: #1799C8; /* Azul claro */
-            padding: 10px;
-            text-align: center;
+            overflow: hidden;
             margin-bottom: 20px;
         }
-        nav a {
+        .navbar a {
+            float: left;
+            display: block;
             color: white;
+            text-align: center;
+            padding: 14px 20px;
             text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
         }
-        nav a:hover {
+        .navbar a:hover {
             background-color: #b3b827; /* Amarelo escuro */
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
         }
-        .menu {
+        .selected-items {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-around;
-            margin-top: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
         }
         .item {
-            background: white;
+            background: #f0f8ff;
             border: 1px solid #ddd;
             border-radius: 5px;
             margin: 10px;
-            padding: 20px;
+            padding: 10px;
             width: 200px;
             text-align: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -53,88 +52,104 @@
             width: 100%;
             border-radius: 5px;
         }
-        .horario {
-            margin-top: 10px;
-            color: #555;
-        }
-        .horarios {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        #formulario {
             margin-top: 20px;
-        }
-        .horario-opcao {
-            background: #f0f0f0;
+            padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            margin: 10px;
-            padding: 15px;
-            width: 200px;
-            text-align: center;
+            background-color: #f9f9f9;
         }
-        .disponibilidade {
-            font-weight: bold;
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
         button {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background-color: #1799C8;
+            background-color: #1799C8; /* Azul claro */
             color: white;
             border: none;
+            padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
+            width: 100%;
         }
         button:hover {
-            background-color: #b3b827;
+            background-color: #b3b827; /* Amarelo escuro */
         }
     </style>
+    <script>
+        function mostrarNotificacao(mensagem) {
+            alert(mensagem);
+        }
+
+        function finalizarPedido() {
+            const nome = document.getElementById('nome').value;
+            const bloco = document.getElementById('bloco').value;
+            const horario = document.getElementById('horario').value;
+
+            if (nome && bloco && horario) {
+                mostrarNotificacao(`Pedido reservado com sucesso para ${nome} no bloco ${bloco} às ${horario}.`);
+                // Aqui você pode redirecionar ou realizar outras ações, se necessário.
+            } else {
+                mostrarNotificacao('Por favor, preencha todos os campos.');
+            }
+        }
+
+        function carregarItensSelecionados() {
+            const selectedItems = JSON.parse(localStorage.getItem('itensSelecionados')) || [];
+            const selectedItemsContainer = document.getElementById('selectedItems');
+
+            selectedItems.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'item';
+                itemDiv.innerHTML = `
+                    <img src="${item.imagem}" alt="${item.nome}">
+                    <h2>${item.nome}</h2>
+                    <p>${item.descricao}</p>
+                `;
+                selectedItemsContainer.appendChild(itemDiv);
+            });
+        }
+
+        window.onload = carregarItensSelecionados;
+    </script>
 </head>
 <body>
 
-    <nav>
-        <a href="indexmarmita.html">Início</a>
-        <a href="#">Fazer Pedido ou Reserva</a>
-        <a href="#">Pedidos e Reservas</a>
-        <a href="#">Configurações</a>
-
-    </nav>
-
-    <h1>Cardápio do Dia</h1>
-    <div class="menu">
-        <div class="item">
-            <img src="imagem1.jpg" alt="Prato 1">
-            <h2>Prato 1</h2>
-            <p>Descrição do prato 1.</p>
-            <div class="horario">Disponível das 12:00 às 15:00</div>
-        </div>
-        <!-- Adicione outros pratos aqui -->
+    <div class="navbar">
+        <a href="index.html">Início</a>
+        <a href="fazerpedido.html">Fazer Pedido</a>
+        <!-- Adicione mais links conforme necessário -->
     </div>
 
-    <h2>Escolha um Horário</h2>
-    <div class="horarios">
-        <div class="horario-opcao">
-            <p>11:00 - 11:30</p>
-            <p class="disponibilidade">Vagas disponíveis: 5</p>
-        </div>
-        <div class="horario-opcao">
-            <p>11:30 - 12:00</p>
-            <p class="disponibilidade">Vagas disponíveis: 3</p>
-        </div>
-        <div class="horario-opcao">
-            <p>12:00 - 12:30</p>
-            <p class="disponibilidade">Vagas disponíveis: 2</p>
-        </div>
-        <div class="horario-opcao">
-            <p>12:30 - 13:00</p>
-            <p class="disponibilidade">Vagas disponíveis: 4</p>
-        </div>
+    <h1>Fazer Pedido</h1>
+
+    <div class="selected-items" id="selectedItems">
+        <!-- Os itens selecionados aparecerão aqui -->
     </div>
 
-    <div style="text-align: center;">
-        <button onclick="alert('Pedido realizado com sucesso!')">Confirmar Pedido</button>
+    <div id="formulario">
+        <h2>Detalhes do Pedido</h2>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" placeholder="Digite seu nome" required>
+        
+        <label for="bloco">Bloco:</label>
+        <input type="text" id="bloco" placeholder="Digite seu bloco" required>
+        
+        <label for="horario">Horário de Retirada:</label>
+        <select id="horario" required>
+            <option value="">Selecione um horário</option>
+            <option value="11:00">11:00</option>
+            <option value="11:30">11:30</option>
+            <option value="12:00">12:00</option>
+            <option value="12:30">12:30</option>
+            <option value="13:00">13:00</option>
+        </select>
+
+        <button type="button" onclick="finalizarPedido()">Reservar</button>
     </div>
 
 </body>
 </html>
-14:09 25/10/2024
